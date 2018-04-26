@@ -1,0 +1,52 @@
+<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+<h4> On peut manipuler du CSS </h4>
+<div id="app">
+	<div 
+		class="demo"
+		@click="attachRed = !attachRed"
+		:class="{red: attachRed}"></div> <!-- Avec ':class', on peut lier une classe CSS dans un array de paire clé/valeur où la clé est la classe et la valeur la condition si on attribue cete classe ou non -->
+	<div class="demo" :class="divClasses"></div> <!-- On peut attacher une propriete calcule qui renvoie un objet JS -->
+	<div class="demo" :class="[color, {red: attachRed}]"></div> <!-- On peut passer un tableau que VueJS va analyser et merger en un ensemble de classe CSS -->
+	<hr>
+	<input type="text" v-model="color"> <!-- On sauvegarde l'input et l'attribuons en tant que classe à la 3eme div -->
+</div>
+
+<script>
+	new Vue({
+		el: '#app',
+		data: {
+			attachRed: false,
+			color: 'green'
+		},
+		computed: {
+			divClasses: function(){
+				return {
+					red: this.attachRed,
+					blue: !this.attachRed,
+				}
+			}
+		}
+	})
+</script>
+
+<style type="text/css">
+	.demo {
+		width: 100px;
+		height: 100px;
+		display: inline-block;
+		margin: 10px;
+		background-color: gray;
+	}
+
+	.red {
+		background-color: red;
+	}
+
+	.blue {
+		background-color: blue;
+	}
+
+	.green {
+		background-color: green;
+	}
+</style>

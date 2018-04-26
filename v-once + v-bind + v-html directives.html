@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VueJS</title>
+	<script src ="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+
+	<div id="app">
+
+		<h4><i> La directive v-once permet de re-render une seule fois </i></h4>
+	  <p v-once>{{ title }}</p>
+
+	  <h4><i> La directive v-bind permet de binder un attribut d'une propriete HTML sur une donnee de l'instance Vue </i></h4>
+	  <p>{{ title }} - <a v-bind:href="link"> Google </a></p>
+	  <p>{{ sayHello() }}</p>
+
+	  <h4><i> La directive v-html permet de traiter du HTML </i></h4>
+	  <p v-html='finishedLink'></p>
+	</div>
+
+<script>
+	new Vue({
+		el: '#app',
+	  data: {
+	  	title: "Hello World!",
+	    link: "http://google.com",
+	    finishedLink: '<a href="http://google.com"> Google </a>',
+	  },
+	  methods: {
+	  	sayHello: function(){	
+	    	this.title = 'Hello!';
+	      return this.title;
+	    }
+	  }
+});
+</script>
+</body>
+</html>

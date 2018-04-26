@@ -1,0 +1,38 @@
+<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+<h4> On peut manipuler du CSS sans classes egalement</h4>
+<div id="app">
+	<div class="demo" :style="{backgroundColor: color}"></div> <!-- Pour une propriete CSS -->
+	<div class="demo" :style="myStyle"></div> <!-- Pour plusieurs propriete CSS -> computed properties -->
+	<div class="demo" :style="[myStyle, {height: width + 'px'}]"></div> <!-- Fonctionne de la même façon que pour les classes -->
+	<hr>
+	<input type="text" v-model="color">
+	<input type="text" v-model="width">
+</div>
+
+<script>
+	new Vue({
+		el: '#app',
+		data: {
+			color: 'gray',
+			width: 100,
+		},
+		computed: {
+			myStyle: function(){
+				return {
+					backgroundColor: this.color,
+					width: this.width + 'px',
+				}
+			}
+		}
+	})
+</script>
+
+<style type="text/css">
+	.demo {
+		width: 100px;
+		height: 100px;
+		display: inline-block;
+		margin: 10px;
+		background-color: gray;
+	}
+</style>

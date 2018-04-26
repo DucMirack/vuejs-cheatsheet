@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VueJS</title>
+	<script src ="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+
+	<div id="app">
+
+	  <h4><i> La directive v-on permet d'ecouter un event et d'executer du code dessus </i></h4>
+	  <button v-on:click="increase(2, $event)"> Click me </button> <!-- On passe un argument classique + l'object Event crée automatiquement -->
+	  <button v-on:click="counter++"> Click me too</button> <!-- On peut écrire du code JS court au lieu d'appeler une fonction -->
+	  <p>{{ counter * 2 > 10 ? 'Superieur a 10' : 'Inferieur a 10'}}</p> <!-- On peut écrire du code JS dans les mustaches comme une condition ternaire -->
+	  <p v-on:mousemove="updateCoordinates">
+	  	Coordinates: {{ x }} / {{ y }}
+	  	- <span v-on:mousemove.stop=""> DEAD SPOT </span> <!-- On utilise un event modifier pour stopper la propagation de l'event dans mon élément --> 
+	  </p>
+	  <input type="text" v-on:keyup.enter.space="alertMe"> <!-- La méthode est déclenchée aux touches Entrée et Espace -->
+
+	  <h4><i> La directive v-model permets de creer un binding a 2 sens sur un input et une data de l'instance</i></h4>
+	  <input type="text" v-model="name">
+	  <p>{{ name }}</p>
+	</div>
+
+<script>
+	new Vue({
+		el: '#app',
+	  data: {
+	    counter: 0,
+	    x: 0,
+	    y: 0,
+	    name: "",
+	  },
+	  methods: {
+	    increase: function(step, event){
+	    	this.counter += step;
+	    },
+	    updateCoordinates: function(event){
+	    	this.x = event.clientX;
+	    	this.y = event.clientY;
+	    },
+	    alertMe: function(){
+	    	alert('Alert!')
+	    }
+	  }
+});
+</script>
+</body>
+</html>

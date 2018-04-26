@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VueJS</title>
+	<script src ="https://unpkg.com/vue/dist/vue.js"></script>
+	<!-- <script src="file:///home/charles/vuejs/vue.js"></script> -->
+
+</head>
+<body>
+
+	<div id="app">
+	  <button v-on:click='counter++'>+</button>
+	  <button v-on:click='counter--'>-</button><br/><br/>
+    <input type="number" v-on:click="storeValue">
+	  <button v-on:click='up()'>Augmenter</button>
+	  <button v-on:click='down()'>Baisser</button>
+	  <p>Nombre: {{ counter }}</p>
+	</div>
+
+<script>
+	new Vue({
+		el: '#app',
+	  data: {
+	  	counter: 0,
+	  	value: 0,
+	  },
+	  methods: {
+	    storeValue: function(event){
+	    	this.value = Number(event.target.value)
+	    },
+	    up: function(){
+	    	this.counter += this.value
+	    },
+	    down: function(){
+	    	this.counter -= this.value
+	    }
+	  }
+});
+</script>
+</body>
+</html>

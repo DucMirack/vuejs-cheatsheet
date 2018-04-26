@@ -1,0 +1,116 @@
+<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+
+<div id="exercise">
+  <!-- 1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attach respective class to the div with id "effect" below) -->
+  <div>
+    <button @click="startEffect">Start Effect</button>
+    <div id="effect" :class="myClass"></div>
+    <!-- <div id="effect" :class="{shrink: attachShrink, highlight: !attachShrink}"></div> -->
+  </div>
+  <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
+  <div :class="[border, 'shortWidth']">I got no class :(</div>
+  <!-- 3) Let the user enter a class (create some example classes) and attach it -->
+  <div>
+    <input type="text" v-model="writtenClass">
+    <div :class="writtenClass"></div>
+  </div>
+  <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
+  <div>
+    <input type="text" v-model="writtenClass2">
+    <input type="text" v-model="displayClass">
+    <div :class="[writtenClass2, {borderGreen: canDisplayClass}]"></div>
+  </div>
+  <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
+  <div>
+    <input type="text" v-model="writtenHeight">
+    <div :style="[{height: formattedHeight}, { backgroundColor: 'purple'}]"></div>
+  </div>
+  <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
+  <div>
+    <button v-on:click="startProgress">Start Progress</button>
+    <div class="progressBar" :style="{width: currentWidthProgressBar}"></div>
+  </div>
+</div>
+
+<script>
+  new Vue({
+    el: '#exercise',
+    data: {
+      attachShrink: false, // 1)
+      border: 'borderGreen', // 2)
+      writtenClass: "", // 3)
+      writtenClass2: "", // 4)
+      displayClass: "", // 4)
+      writtenHeight: "100", // 5)
+      widthProgressBar: 0, // 6)
+    },
+    computed: {
+      myClass: function(){ // 1)
+        return {
+          shrink: this.attachShrink,
+          highlight: !this.attachShrink
+        }
+      },
+      canDisplayClass: function(){ // 4)
+        return this.displayClass == 'true' ? true : false
+      },
+      formattedHeight: function (){ // 5)
+        return this.writtenHeight + 'px'
+      },
+      currentWidthProgressBar: function() {
+        return this.widthProgressBar + 'px'
+      }
+    },
+    methods: {
+      startEffect: function() { // 1)
+        var vm = this
+        setInterval(function(){
+          vm.attachShrink = !vm.attachShrink
+        }, 1000)
+      },
+      startProgress: function(){ // 6)
+        var vm = this
+        setInterval(function(){
+          vm.widthProgressBar += 30
+        },500)
+      }
+    }
+  });
+</script>
+
+<style type="text/css">
+  #effect { /*// 1)*/
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+  }
+
+  .highlight { /*// 1)*/
+    background-color: red;
+    width: 200px !important;
+  }
+
+  .shrink { /*// 1)*/
+    background-color: gray;
+    width: 50px !important;
+  }
+
+  .borderGreen { /*// 2)*/
+    border: 2px green solid;
+  }
+
+  .shortWidth { /*// 2)*/
+    width: 100px; 
+  }
+
+  .rectangleWithYellowBg {
+    width: 200px;
+    height: 100px;
+    background-color: yellow;
+  }
+
+  .progressBar { /*// 6)*/
+    height: 50px;
+    background-color: red;
+  }
+</style>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VueJS</title>
+	<script src ="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+
+	<div id="app">
+
+		<p v-if="show">You can see me! <span>Hello!</span></p> <!-- Attache ou détache l'élément du DOM (au lieu de montrer/cacher) -->
+		<p v-else>Now can see me!</p>
+		<template v-if="show"> <!-- Container similaire au div -->
+			<h1>Heading</h1>
+			<p>Inside a template</p>
+		</template>
+		<p v-show="show">Do you can also see me!</p> <!-- Montre ou cache l'élément du DOM (au lieu de détacher/attacher) -->
+		<button @click="show = !show">Switch</button>
+	</div>
+
+<script>
+	new Vue({
+		el: '#app',
+	  data: {
+	    show: true
+	  }
+});
+</script>
+</body>
+</html>
