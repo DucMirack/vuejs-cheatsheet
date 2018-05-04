@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>VueJS</title>
+  <script src ="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+
+  <div id="app1">
+    <h1 ref="heading">{{ title }}</h1>
+    <button @click="show" ref="myButton"> Show paragraph</button> <!-- ref permet d'avoir accès aux propriétés de l'élément -->
+    <p v-if="showParagraph"> This is not always visible</p>
+  </div>
+
+  <div id="app2">
+    <h1>{{ title }}</h1>
+    <button @click="onChange"> Change title in vm1</button>
+  </div>
+
+  <div id="app3">
+
+  </div>
+
+<script>
+  var data = {
+    title: 'The VueJS Instance',
+    showParagraph: false
+  }
+  var vm1 = new Vue({
+    data: data,
+    methods: {
+      show: function() {
+        this.showParagraph = true,
+        this.updateTitle('The VueJS Instance (Updated)')
+        // On peut modifier une propriété du button avec $refs
+        this.$refs.myButton.innerText = 'Changed via $refs'
+      },
+      updateTitle: function(title) {
+        this.title = title;
+      }
+    },
+    computed: {
+      lowercaseTitle : function() {
+        return this.title.lowercase();
+      }
+    },
+    watch : {
+      title: function(value) {
+        alert('Title changed, new value: ' + value);
+      }
+    }
+  })
+
+  vm1.$mount('#app1');
+
+  vm1.newProp = "New!"
+  console.log(vm1) // Data et methods sont mis sous forme de getter/setter dans l'objet vm1, newProp n'a pas cela car créé hors de la définition de l'instance
+
+  console.log(vm1.$data === data)
+  vm1.$refs.heading.innerText = "Other title"
+
+  // On peut accéder aux instances hors des instances
+  setTimeout(function() {
+    vm1.title = "Changed by timer"
+    vm1.show()
+  },3000);
+
+  var vm2 = new Vue({
+    el: "#app2",
+    data: {
+      title: "The second title"
+    },
+    methods: {
+      // On peut accéder à une instance depuis une autre
+      onChange: function(){
+        vm1.title = 'Changed by vm2'
+      }
+    }
+  })
+
+  var vm3 = new Vue({
+    template: "<h1> I am a template </h1>"
+  })
+
+  // vm3.$mount('#app3')
+  vm3.$mount()
+  document.getElementById('app3').appendChild(vm3.$el)
+
+</script>
+</body>
+</html>
