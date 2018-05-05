@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>VueJS</title>
+  <script src ="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+
+  <div id="app">
+    <h1>{{ title }}</h1>
+    <button @click="title = 'Updated title'"> Update title </button>
+    <button @click="destroy()"> Destroy </button>
+  </div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      title: 'Title'
+    },
+    beforeCreate: function() {
+      console.log('beforeCreate called()');
+    },
+    created: function() {
+      console.log('created called()');
+    },
+    beforeMount: function() {
+      console.log('beforeMount called()');
+    },
+    mounted: function() {
+      console.log('mounted called()');
+    },
+    beforeUpdate: function() {
+      console.log('beforeUpdate called()');
+    },
+    updated: function() {
+      console.log('updated called()');
+    },
+    beforeDestroy: function() {
+      console.log('beforeDestroy called()');
+    },
+    destroyed: function() {
+      console.log('destroyed called()');
+    },
+    methods: {
+      // Détruit l'instance vue: la logique js de vue est enlevée, I.E : essayer d'update le title après le destroy ne marchera pas  
+      destroy: function() {
+        this.$destroy()
+      }
+    }
+  })
+</script>
+</body>
+</html>
