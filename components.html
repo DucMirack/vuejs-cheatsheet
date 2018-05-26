@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VueJS</title>
+	<script src ="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+
+	<div id="app">
+    <my-cpn></my-cpn>
+    <hr/>
+    <my-cpn></my-cpn>
+	</div>
+
+	<div id="app2">
+    <my-cpn></my-cpn>
+    <hr/>
+    <my-cpn></my-cpn>
+	</div>
+
+<script>
+  var data = { status: 'Critical' } // Ne pas utiliser cet objet dans les composants car les données seront partagées globalement au niveau de l'instance et non au niveau du composant
+
+  // Vue.component('my-cpn', {}) Déclaration globale
+  var cpn = { // Déclaration locale --> ajouter le composant dans l'instance Vue
+    data: function() {
+      return {
+        status: 'Critical'
+      }
+    },
+    template: '<p> Server status : {{ status }} (<button @click="changeStatus"> Change text </button>)</p>',
+    methods: {
+      changeStatus: function() {
+        this.status = 'Normal'
+      }
+    }
+  }
+
+  new Vue({
+		el: '#app',
+    components: {
+      'my-cpn': cpn // On dit à l'instance qu'on utilise ce composant dans l'instance
+    }
+  });
+
+  new Vue({
+		el: '#app2'
+  });
+</script>
+</body>
+</html>
